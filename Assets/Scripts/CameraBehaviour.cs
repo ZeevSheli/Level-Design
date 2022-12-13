@@ -1,102 +1,68 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Cinemachine;
 
 public class CameraBehaviour : MonoBehaviour
 {
-    public enum CameraState {
-        Gameplay,
-        ScriptedCinematic,
-        Death
-    }
+    public float maxSensitivity = 1000.0f;
 
-    [Header("References and Misc")]
-    public GameObject player;
-    public CameraState currentState = new CameraState();
+    public Cinemachine.AxisState yAxis;
+    public Cinemachine.AxisState xAxis;
+    public Transform camera_look_at_transform;
 
-    [Header("Gameplay State following Parameters")]
-    public bool shouldAlwaysFollowPlayerInGameplay = false;
+    public Cinemachine.CinemachineVirtualCamera headCamera;
+    private CinemachineComponentBase head_component_base;
 
-    public Vector2 screenEdgeForFollow;
+    public Cinemachine.CinemachineVirtualCamera aimCamera;
 
-    public float followDamping;
+    private float head_camera_max_distance = 6.0f;
+    private float head_camera_min_distance = 3.0f;
 
-    public AnimationCurve dampingScreenEdgeDistance;
+    //private float zoom_lerp_timer;
+    //private const float ZOOM_LERP_INTERVAL = 1.0f;
 
-    private Camera cam;
+    //private float aim_camera_original_cam_distance = 2.0f;
 
-    private Vector3 initialCameraOffset;
+    //public Transform camera_look_at_reverse_transform;
 
+    public Slider sensetivity_slider;
 
     // Start is called before the first frame update
     void Start()
     {
-        cam = GetComponent<Camera>();
-        initialCameraOffset = transform.position - player.transform.position;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        //sensetivity_slider.value = xAxis.m_MaxSpeed / maxSensitivity;
+        sensetivity_slider.value = PlayerPrefs.GetFloat("SensitivityValue", xAxis.m_MaxSpeed / maxSensitivity);
+
+        head_component_base = headCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
-        switch (currentState)
-        {
-            case CameraState.Gameplay:
-                UpdateOnGameplay();
-                break;
+        xAxis.Update(Time.deltaTime);
+        yAxis.Update(Time.deltaTime);
 
-            case CameraState.Death:
-                UpdateOnDeath();
-                break;
+        camera_look_at_transform.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, 0.0f);
+        //camera_look_at_reverse_transform.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, 0.0f);
 
-            case CameraState.ScriptedCinematic:
-                UpdateOnScriptedCinematic();
-                break;
+        //if (Input.GetKey(KeyCode.T))
+        //{
+        //    camera_look_at_reverse_transform.eulerAngles = new Vector3(yAxis.Value, xAxis.Value + 180.0f, 0.0f);
+        //}  
 
-            default:
-                break;
-        }
+        (head_component_base as Cinemachine3rdPersonFollow).CameraDistance -= Input.mouseScrollDelta.y;
+        (head_component_base as Cinemachine3rdPersonFollow).CameraDistance = Mathf.Clamp((head_component_base as Cinemachine3rdPersonFollow).CameraDistance, head_camera_min_distance, head_camera_max_distance);
     }
 
-    private void UpdateOnGameplay()
+    public void SetSensitivity()
     {
-        if (shouldAlwaysFollowPlayerInGameplay)
-        {
-            transform.position = Vector3.Lerp(transform.position, player.transform.position + initialCameraOffset, followDamping * Time.deltaTime);
-            return;
-        }
+        PlayerPrefs.SetFloat("SensitivityValue", sensetivity_slider.value);
 
-        Vector3 playerRelativeScreenPosition = cam.WorldToViewportPoint(player.transform.position);
-        float adjustedDamping = followDamping;
-
-        if(playerRelativeScreenPosition.x <= screenEdgeForFollow.x)
-        {
-            adjustedDamping *= dampingScreenEdgeDistance.Evaluate(1-(playerRelativeScreenPosition.x / screenEdgeForFollow.x));
-            transform.Translate(transform.right * Time.deltaTime * adjustedDamping * -1);
-        }
-        if(playerRelativeScreenPosition.x > (1 - screenEdgeForFollow.x))
-        {
-            adjustedDamping *= dampingScreenEdgeDistance.Evaluate(1-((1-playerRelativeScreenPosition.x) / screenEdgeForFollow.x));
-            transform.Translate(transform.right * Time.deltaTime * adjustedDamping);
-        }
-        if(playerRelativeScreenPosition.y <= screenEdgeForFollow.y)
-        {
-            adjustedDamping *= dampingScreenEdgeDistance.Evaluate(1-(playerRelativeScreenPosition.y / screenEdgeForFollow.y));
-            transform.position -= Vector3.forward * Time.deltaTime * adjustedDamping;
-        }
-        if(playerRelativeScreenPosition.y > (1 - screenEdgeForFollow.y))
-        {
-            adjustedDamping *= dampingScreenEdgeDistance.Evaluate(1 - ((1-playerRelativeScreenPosition.y) / screenEdgeForFollow.y));
-            transform.position += Vector3.forward * Time.deltaTime * adjustedDamping;
-        }
-    }
-
-    private void UpdateOnScriptedCinematic()
-    {
-
-    }
-
-    private void UpdateOnDeath()
-    {
-
+        xAxis.m_MaxSpeed = maxSensitivity * sensetivity_slider.value;
+        yAxis.m_MaxSpeed = maxSensitivity * sensetivity_slider.value;
     }
 }
