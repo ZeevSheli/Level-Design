@@ -160,7 +160,7 @@ public class HeadBehaviour : MonoBehaviour
         if (Input.GetAxisRaw("Spit") > 0 && isAiming == true && isSpitting == false)
         {
             isSpitting = true;
-            if (GetComponent<SpitAmmoBehaviour>().spit_amount >= GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT / 3.0f)
+            if (GetComponent<SpitAmmoBehaviour>().spit_amount >= 0f) //GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT / 3.0f)
             {
                 animator.Play("Spit");
                // SoundManager.PlaySound("spit");
@@ -170,7 +170,7 @@ public class HeadBehaviour : MonoBehaviour
                 GameObject newSpit = GameObject.Instantiate(spitProjectile as GameObject, spitTrajectory.transform.position/*transform.position*/, Quaternion.identity);
                 newSpit.GetComponent<Rigidbody>().velocity = lookDirection * Constants.SPIT_PROJECTILE_SPEED;
 
-                GetComponent<SpitAmmoBehaviour>().spit_amount -= GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT / 3.0f;
+              //  GetComponent<SpitAmmoBehaviour>().spit_amount -= GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT / 3.0f;
             }
         }
         if (Input.GetAxisRaw("Spit") <= 0)
