@@ -21,9 +21,11 @@ public class HeadBehaviour : MonoBehaviour
     private const float BOOST_FORCE = 1.5f; //In newtons
     private const float AERIAL_FORCE = 0.05f; //In newtons
 
+    /*
     private bool can_boost = true;
     private float boost_timer = 0.0f;
     private const float BOOST_INTERVAL = 1.5f;
+    */
 
     private float original_angular_drag;
 
@@ -118,7 +120,7 @@ public class HeadBehaviour : MonoBehaviour
                 aim_lerp_timer = 0.0f;
                 GetComponent<MovementBehaviour2>().movement_enabled = false;
                 spitTrajectory.SetActive(true);
-                SoundManager.PlaySound("gurgle");
+             //   SoundManager.PlaySound("gurgle");
                 //to make the head slide less when aiming
                 head_collider.material.dynamicFriction = 1.0f;
                 head_collider.material.staticFriction = 1.0f;
@@ -161,7 +163,7 @@ public class HeadBehaviour : MonoBehaviour
             if (GetComponent<SpitAmmoBehaviour>().spit_amount >= GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT / 3.0f)
             {
                 animator.Play("Spit");
-                SoundManager.PlaySound("spit");
+               // SoundManager.PlaySound("spit");
                 Vector3 lookDirection = lookDirectionObject.position - spitTrajectory.transform.position/*transform.position*/;
                 lookDirection.Normalize();
 
@@ -285,13 +287,13 @@ public class HeadBehaviour : MonoBehaviour
         {
             DigitBehaviour digit_behaviour = other.GetComponent<DigitBehaviour>();
             GameBehaviour.setUIDigit(digit_behaviour.getDigitValue(), digit_behaviour.getDigitPosition());
-            SoundManager.PlaySound("note_pickup");
+            //SoundManager.PlaySound("note_pickup");
             Destroy(other.gameObject);
             Debug.Log("collected " + other.gameObject.name.ToString());
         }
         if (other.gameObject.CompareTag("Cheer Cube"))
         {
-            SoundManager.PlaySound("cheer");
+            //SoundManager.PlaySound("cheer");
             Debug.Log("KOBE o/");
         }
         if (other.gameObject.CompareTag("Win Collider"))
@@ -303,7 +305,7 @@ public class HeadBehaviour : MonoBehaviour
             //locker_door_hinge_joint.spring = joint_spring;
             //play sound for closing
             // SoundManager.PlaySound("locked_locker");
-            SoundManager.PlaySound("cheer");
+            //SoundManager.PlaySound("cheer");
             //fade to black in ui
             input_enabled = false;
             GetComponent<MovementBehaviour2>().movement_enabled = false;
@@ -316,7 +318,7 @@ public class HeadBehaviour : MonoBehaviour
             if (GetComponent<SpitAmmoBehaviour>().spit_amount < GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT)
             {
                 //Debug.Log("slurp");
-                SoundManager.PlaySound("drink");
+              //  SoundManager.PlaySound("drink");
                 GetComponent<SpitAmmoBehaviour>().spit_amount = GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT;
             }
         }
@@ -326,13 +328,13 @@ public class HeadBehaviour : MonoBehaviour
             {
                 other.GetComponent<HomingBehaviour>().CollideAndDestroy();
                 HealthRespawnBehaviour.takeDamage(0.3f);
-                SoundManager.PlaySound("slap");
+                //SoundManager.PlaySound("slap");
             }
             else
             {
                 other.GetComponent<ThrowBehaviour>().CollideAndDestroy();
                 HealthRespawnBehaviour.takeDamage(0.2f);
-                SoundManager.PlaySound("slap");
+                //SoundManager.PlaySound("slap");
             }
             Vector3 directionToHeadHorizontal = transform.position - other.transform.position;
             Vector3 directionToHeadVertical = Vector3.zero; directionToHeadVertical.y = 6.0f;
@@ -347,14 +349,14 @@ public class HeadBehaviour : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Slap Sphere"))
         {
-            SoundManager.PlaySound("slap");
+           // SoundManager.PlaySound("slap");
             HealthRespawnBehaviour.takeDamage(1.0f);
             //Debug.Log("Ouch!");
         }
         else if(other.gameObject.CompareTag("Hurtful Ground"))
         {
             //PLAY BURNING SOUND
-            SoundManager.PlaySound("lava sizzle");
+           // SoundManager.PlaySound("lava sizzle");
             blackSmoke.Play();
             //Debug.Log("IT BURNS!");
             rigidbody.velocity += Vector3.up * 10.0f;
@@ -373,7 +375,7 @@ public class HeadBehaviour : MonoBehaviour
             if (GetComponent<SpitAmmoBehaviour>().spit_amount < GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT / 3)
             {
                 //Debug.Log("slurp");
-                SoundManager.PlaySound("drink");
+              //  SoundManager.PlaySound("drink");
                 GetComponent<SpitAmmoBehaviour>().spit_amount = GetComponent<SpitAmmoBehaviour>().MAX_SPIT_AMOUNT;
             }
         }
@@ -392,6 +394,6 @@ public class HeadBehaviour : MonoBehaviour
     {
      animator.Play("Spit");
      skinAnimator.Play("Head Color Purple");
-     SoundManager.PlaySound("berry eat");
+    // SoundManager.PlaySound("berry eat");
     }
 }
