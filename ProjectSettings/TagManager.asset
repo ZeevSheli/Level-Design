@@ -4,31 +4,42 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Boss
-  - PlayerProjectile
+  - Locker Digit
+  - UI Digits Parent
+  - Cheer Cube
+  - Win Collider
+  - Slap Sphere
+  - Water Recharge
+  - Homing Projectile
+  - Spit
+  - Throw Projectile
+  - Checkpoint
+  - Hurtful Ground
+  - Sponge
+  - Boing
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - OnlyPlayer
+  - 
   - Water
   - UI
-  - WhatIsGround
-  - WhatIsPlayer
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Post-Processing
+  - Hand
+  - Player
+  - Digit
+  - Wall
+  - School Walls
+  - Slap
+  - Floor
+  - Fence
+  - Spit
+  - Door
+  - Enemy-Ball
+  - Music
+  - Vision-Obstacles
   - 
   - 
   - 

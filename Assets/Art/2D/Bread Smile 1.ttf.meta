@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: e0f034bd4aaf4ea45b6467db029ddc08
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Bread Smile
+  fontNames:
+  - Bread Smile
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3ec5a6175aba4f8429acf4e6a00b17f0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -36,7 +36,7 @@ public class HeadBehaviour : MonoBehaviour
     public bool input_enabled = true;
     public GameObject win_screen;
 
-    public Animator music_animator;
+    //public Animator music_animator;
 
     //SHOOTING
     public GameObject spitProjectile;
@@ -81,7 +81,7 @@ public class HeadBehaviour : MonoBehaviour
 
         original_angular_drag = rigidbody.angularDrag;
 
-        music_animator.enabled = false;
+       // music_animator.enabled = false;
 
         blackSmoke = GetComponent<ParticleSystem>();
     }
@@ -308,7 +308,7 @@ public class HeadBehaviour : MonoBehaviour
             input_enabled = false;
             GetComponent<MovementBehaviour2>().movement_enabled = false;
             win_screen.SetActive(true);
-            music_animator.enabled = true;
+          //  music_animator.enabled = true;
             StartCoroutine("wait_before_changing_scene");
         }
         if (other.gameObject.CompareTag("Water Recharge"))
