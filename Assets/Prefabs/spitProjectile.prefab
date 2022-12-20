@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: -8418065597260102384}
   - component: {fileID: 1757029252326430929}
   - component: {fileID: -8151947298631891507}
-  - component: {fileID: 4361060046990377956}
   m_Layer: 17
   m_Name: spitProjectile
   m_TagString: Spit
@@ -4962,17 +4961,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SplashEffect: {fileID: 3046148623167693810, guid: be7f4c6d43c6b5341973e2f5a21324c2,
     type: 3}
---- !u!114 &4361060046990377956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8354596802988892403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cce5ae01beccff40bbad6cb121775ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStructure: 0
-  ignoredObjects: []
